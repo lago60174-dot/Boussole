@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Boussole — hors ligne</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f5f6f2;
+        color: #1b1d23;
+        font-family: -apple-system, system-ui, sans-serif;
+        text-align: center;
+        padding: 24px;
+      }
+      .card { max-width: 360px; }
+      h1 { font-size: 1.25rem; margin-bottom: 8px; }
+      p { color: #4a4d58; line-height: 1.5; }
+      button {
+        margin-top: 20px;
+        background: #1f3a5f;
+        color: #f5f6f2;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 20px;
+        font-size: 0.95rem;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Pas de connexion</h1>
+      <p>Boussole a besoin d'une connexion pour synchroniser tes tâches, ton agenda et tes projets. Reconnecte-toi puis réessaie.</p>
+      <button onclick="location.reload()">Réessayer</button>
+    </div>
+  </body>
+</html>

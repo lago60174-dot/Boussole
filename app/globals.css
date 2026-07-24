@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   BOUSSOLE — système de tokens
+   Palette : encre profonde + papier, un bleu de prusse pour l'action primaire,
+   et une couleur par module (Tâches / Agenda / Projets / Objectifs) qui sert
+   de repère visuel constant dans toute l'app — comme des onglets d'agenda papier.
+   ============================================================================ */
+@theme {
+  /* Neutres */
+  --color-ink: #1b1d23;
+  --color-ink-soft: #4a4d58;
+  --color-canvas: #f5f6f2;
+  --color-canvas-raised: #ffffff;
+  --color-line: #e2e1da;
+  --color-canvas-dark: #14161a;
+  --color-ink-dark: #eceae2;
+  --color-canvas-raised-dark: #1c1f26;
+  --color-line-dark: #2a2d35;
+
+  /* Action primaire */
+  --color-compass: #1f3a5f;
+  --color-compass-soft: #cddaea;
+
+  /* Repères par module */
+  --color-tasks: #b8752a;
+  --color-tasks-soft: #f2e2cc;
+  --color-calendar: #2e7d75;
+  --color-calendar-soft: #d9ebe8;
+  --color-projects: #5b4b8a;
+  --color-projects-soft: #e4dff2;
+  --color-objectives: #a8452f;
+  --color-objectives-soft: #f1dcd6;
+
+  /* États */
+  --color-success: #3e8f63;
+  --color-warning: #c17f2a;
+  --color-danger: #b5423a;
+
+  /* Typographie */
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-plex-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SF Mono", monospace;
+}
+
+/* Les utilitaires Tailwind générés depuis @theme référencent ces variables
+   via var(--color-*) à l'exécution (et non des valeurs figées au build) :
+   il suffit donc de redéfinir les variables elles-mêmes ici pour que tout
+   bg-canvas / text-ink / etc. s'adapte automatiquement au mode sombre. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-canvas: var(--color-canvas-dark);
+    --color-canvas-raised: var(--color-canvas-raised-dark);
+    --color-ink: var(--color-ink-dark);
+    --color-ink-soft: #a9acb8;
+    --color-line: var(--color-line-dark);
+    --color-compass-soft: #223349;
+  }
+}
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+/* Le "fil" — élément signature du tableau de bord : relie objectifs, projets
+   et tâches du jour par un trait continu, comme une ficelle sur un tableau de liège. */
+.thread-line {
+  background: linear-gradient(
+    to bottom,
+    var(--color-objectives) 0%,
+    var(--color-projects) 50%,
+    var(--color-tasks) 100%
+  );
+  width: 2px;
+}
+
+.thread-node {
+  box-shadow: 0 0 0 4px var(--color-canvas);
+}
+
+::selection {
+  background: var(--color-compass-soft);
+  color: var(--color-compass);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

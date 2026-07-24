@@ -1,0 +1,33 @@
+{
+  "name": "boussole",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Boussole — todo listes, agenda et gestion de projets/objectifs, en un seul système personnel.",
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "generate-vapid": "node scripts/generate-vapid-keys.mjs"
+  },
+  "dependencies": {
+    "@supabase/ssr": "latest",
+    "@supabase/supabase-js": "latest",
+    "clsx": "latest",
+    "date-fns": "latest",
+    "lucide-react": "latest",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "web-push": "latest"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "latest",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "@types/web-push": "latest",
+    "tailwindcss": "latest",
+    "typescript": "^6.0.3"
+  }
+}

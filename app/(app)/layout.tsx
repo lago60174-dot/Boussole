@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { MobileNav } from "@/components/layout/MobileNav";
+import { MobileHeader } from "@/components/layout/MobileHeader";
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient();
@@ -24,9 +25,12 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   return (
     <div className="flex min-h-screen bg-canvas">
       <Sidebar displayName={displayName} />
-      <main className="flex-1 overflow-x-hidden pb-20 sm:pb-0">
-        <div className="mx-auto max-w-5xl px-4 py-6 sm:px-8 sm:py-8">{children}</div>
-      </main>
+      <div className="flex min-w-0 flex-1 flex-col">
+        <MobileHeader />
+        <main className="flex-1 overflow-x-hidden pb-20 sm:pb-0">
+          <div className="mx-auto max-w-5xl px-4 py-6 sm:px-8 sm:py-8">{children}</div>
+        </main>
+      </div>
       <MobileNav />
     </div>
   );

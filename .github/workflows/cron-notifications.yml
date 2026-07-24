@@ -1,0 +1,35 @@
+name: Rappels (tâches & événements)
+
+# Remplace le cron Vercel (limité à 1 exécution/jour sur le plan Hobby) :
+# ce workflow appelle simplement la route déjà protégée par CRON_SECRET,
+# GET /api/cron/notifications, toutes les 5 minutes.
+#
+# Configuration requise, dans Settings → Secrets and variables → Actions
+# du dépôt GitHub :
+#   - APP_URL      : l'URL publique de l'app (ex. https://boussole.vercel.app)
+#   - CRON_SECRET  : exactement la même valeur que la variable d'env
+#                     CRON_SECRET définie sur Vercel.
+#
+# ⚠️ GitHub désactive automatiquement les workflows planifiés après 60 jours
+# sans AUCUN commit sur le dépôt (public ou privé). Si tu casses ce rythme,
+# repasse sur Actions → ce workflow → "Enable workflow" pour le réactiver.
+# Si tu préfères ne pas y penser, cron-job.org (https://cron-job.org) est
+# une alternative gratuite et sans cette contrainte : configure-y un appel
+# GET vers la même URL avec le même en-tête Authorization ci-dessous.
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch: {} # permet un déclenchement manuel depuis l'onglet Actions, pour tester
+
+jobs:
+  ping-notifications:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Appeler /api/cron/notifications
+        run: |
+          curl --fail --show-error --silent \
+            --max-time 25 \
+            --retry 2 --retry-delay 5 \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            "${{ secrets.APP_URL }}/api/cron/notifications"

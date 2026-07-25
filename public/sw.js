@@ -56,6 +56,20 @@ self.addEventListener("push", (event) => {
     tag: payload.tag || "boussole-notification",
     data: { url: payload.url || "/dashboard" },
     renotify: Boolean(payload.tag),
+    // Pattern de vibration distinct (buzz-pause-buzz-pause-buzz), plus
+    // "insistant" qu'une vibration simple. Fonctionne sur Android Chrome ;
+    // ignoré silencieusement là où ce n'est pas supporté (ex. iOS Safari,
+    // qui ne supporte pas la vibration côté web, ni desktop sans matériel
+    // vibrant). Aucun navigateur ne permet en revanche de définir un SON
+    // personnalisé pour une notification web — ce n'est implémenté nulle
+    // part, ce n'est donc pas réglable ici. Pour un son personnalisé, une
+    // fois l'app installée, il faut passer par Paramètres du téléphone →
+    // Applications → Boussole → Notifications (réglage système, par
+    // appareil, pas par le code).
+    vibrate: [200, 100, 200, 100, 200],
+    // Garde la notification affichée jusqu'à ce qu'elle soit explicitement
+    // fermée/cliquée, au lieu de disparaître seule après quelques secondes.
+    requireInteraction: true,
   };
 
   event.waitUntil(self.registration.showNotification(title, options));
